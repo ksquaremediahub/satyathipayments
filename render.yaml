@@ -9,4 +9,4 @@ services:
       - key: MONGO_URI
         sync: false
       - key: MYSQL_URI
-        sync: false
+        value: mysql://u389460441_accounts:Accounts%402025@193.203.184.173:3306/u389460441_accounts
