@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Branch Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="bg-gradient">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between">
+      <span class="navbar-brand brand-badge"><img id="companyLogoHeader" alt="" style="width:34px;height:34px;object-fit:cover;border-radius:6px;display:none;margin-right:8px"><span class="brand-dot dot1"></span><span class="brand-dot dot2"></span><span class="brand-dot dot3"></span><span class="brand-dot dot4"></span><span>Satyathi Digital</span></span>
+      <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+  <div class="container-fluid app-shell">
+    <div class="row g-4">
+      <aside class="col-lg-3 sidebar">
+        <div class="menu">
+          <div class="title">Branch</div>
+          <a class="nav-link active" href="#makePayment"><i class="bi bi-cash-stack"></i> Make Payment</a>
+          <a class="nav-link" href="#branchReports"><i class="bi bi-table"></i> Reports</a>
+        </div>
+      </aside>
+      <main class="col-lg-9 content">
+        <div class="card shadow-sm">
+          <div class="card-header"><span id="makePayment">MAKE PAYMENT</span></div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-lg-6">
+            <div class="mb-2">
+              <label class="form-label">PAYMENT TYPE</label>
+              <select id="ptype" class="form-select">
+                <option value="cash">Cash</option>
+                <option value="card" selected>Credit</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">CLIENT DETAILS</label>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">NAME</label>
+              <input id="cname" class="form-control" placeholder="Client name">
+              <div class="invalid-feedback" id="err_cname"></div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">MOBILE NO</label>
+              <input id="cphone" class="form-control" placeholder="Client phone">
+              <div class="invalid-feedback" id="err_cphone"></div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">CITY</label>
+              <input id="ccity" class="form-control" placeholder="City">
+              <div class="invalid-feedback" id="err_ccity"></div>
+            </div>
+              </div>
+              <div class="col-lg-6">
+            <div id="cardBox">
+              <div class="mb-2">
+                <label class="form-label">CREDIT CARD BILL PAYMENT</label>
+              </div>
+              <div class="mb-2">
+                <label class="form-label">CARD NO</label>
+                <input id="cnum" class="form-control" placeholder="1234 5678 9012 3456">
+                <div class="invalid-feedback" id="err_cnum"></div>
+              </div>
+              <div class="row g-2">
+                <div class="col">
+                  <label class="form-label">EXP DATE</label>
+                  <input id="cexp" class="form-control" placeholder="MM/YY">
+                  <div class="invalid-feedback" id="err_cexp"></div>
+                </div>
+                <div class="col">
+                  <label class="form-label">DUE DATE</label>
+                  <input id="dueDate" type="date" class="form-control">
+                  <div class="invalid-feedback" id="err_dueDate"></div>
+                </div>
+              </div>
+              <div class="row g-2 mt-2">
+                <div class="col-md-6">
+                  <label class="form-label">BANK NAME</label>
+                  <input id="bankName" class="form-control" placeholder="Bank name">
+                  <div class="invalid-feedback" id="err_bankName"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">MOBILE NO</label>
+                  <input id="cardMobile" class="form-control" placeholder="Mobile number">
+                  <div class="invalid-feedback" id="err_cardMobile"></div>
+                </div>
+              </div>
+              <div class="row g-2 mt-2">
+                <div class="col-md-4">
+                  <label class="form-label">SWIPED</label>
+                  <input id="swipedAmount" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_swipedAmount"></div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">CARD LIMIT</label>
+                  <input id="cardLimit" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_cardLimit"></div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">HOLD AMOUNT</label>
+                  <input id="holdAmount" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_holdAmount"></div>
+                </div>
+              </div>
+              <div class="row g-2 mt-2">
+                <div class="col-md-4">
+                  <label class="form-label">CHARGES RATE</label>
+                  <input id="chargesRate" type="number" step="0.01" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_chargesRate"></div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">CHARGES AMOUNT</label>
+                  <input id="chargesAmount" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_chargesAmount"></div>
+                </div>
+              </div>
+              <div class="row g-2 mt-2">
+                <div class="col-md-4">
+                  <label class="form-label">TOTAL BILL DUE</label>
+                  <input id="totalBill" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_totalBill"></div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">PAID</label>
+                  <input id="billPaid" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_billPaid"></div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">NEED TO PAY</label>
+                  <input id="needToPay" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_needToPay"></div>
+                </div>
+              </div>
+              
+              </div>
+              
+            </div>
+            <div id="cashBox" style="display:none">
+              <div class="mb-2">
+                <label class="form-label">CARD TO CASH</label>
+              </div>
+              <div class="row g-2 mt-2">
+                <div class="col-md-6">
+                  <label class="form-label">BANK NAME</label>
+                  <input id="cashBankName" class="form-control" placeholder="Bank name">
+                  <div class="invalid-feedback" id="err_cashBankName"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">MOBILE NO</label>
+                  <input id="cashMobile" class="form-control" placeholder="Mobile number">
+                  <div class="invalid-feedback" id="err_cashMobile"></div>
+                </div>
+              </div>
+              <div class="mb-2 mt-2">
+                <label class="form-label">CARD NO</label>
+                <input id="cashCardNo" class="form-control" placeholder="1234 5678 9012 3456">
+                <div class="invalid-feedback" id="err_cashCardNo"></div>
+              </div>
+              <div class="row g-2 mt-2">
+                <div class="col-md-6">
+                  <label class="form-label">EXP DATE</label>
+                  <input id="cashExpDate" class="form-control" placeholder="MM/YY">
+                  <div class="invalid-feedback" id="err_cashExpDate"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">AMOUNT SWIPED</label>
+                  <input id="cashSwipedAmount" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_cashSwipedAmount"></div>
+                </div>
+              </div>
+              <div class="row g-2 mt-2">
+                <div class="col-md-4">
+                  <label class="form-label">CHARGES RATE</label>
+                  <input id="cashChargesRate" type="number" step="0.01" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_cashChargesRate"></div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">CHARGES AMOUNT</label>
+                  <input id="cashChargesAmount" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_cashChargesAmount"></div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">AMOUNT SENT</label>
+                  <input id="cashAmountSent" type="number" class="form-control" placeholder="0">
+                  <div class="invalid-feedback" id="err_cashAmountSent"></div>
+                </div>
+              </div>
+              <div class="row g-2 mt-2">
+                <div class="col-md-6">
+                  <label class="form-label">BENEFICIARY BANK</label>
+                  <input id="cashReceiverBankName" class="form-control" placeholder="Beneficiary bank">
+                  <div class="invalid-feedback" id="err_cashReceiverBankName"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">BENEFICIARY ACC NO</label>
+                  <input id="cashReceiverAccount" class="form-control" placeholder="Account number">
+                  <div class="invalid-feedback" id="err_cashReceiverAccount"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 d-flex gap-2">
+            <button class="btn btn-primary" onclick="submitBranchPayment()">Pay</button>
+            <div class="form-check form-switch align-self-center">
+              <input class="form-check-input" type="checkbox" id="shareWaBranch">
+                <label class="form-check-label" for="shareWaBranch">Share on WhatsApp</label>
+              </div>
+              <div id="pmsg" class="text-success"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card shadow-sm">
+          <div class="card-header"><span id="branchReports">BRANCH REPORTS</span></div>
+          <div class="card-body">
+            <div class="row g-2 align-items-end">
+              <div class="col-md-4">
+                <label class="form-label">Date</label>
+                <input id="date" type="date" class="form-control">
+              </div>
+              <div class="col-md-8">
+                <div class="row g-2 align-items-end">
+                  <div class="col-12 col-md-6">
+                    <div class="input-group">
+                      <span class="input-group-text">Search</span>
+                      <input id="searchTextBranch" class="form-control" placeholder="Phone digits or card first/last 4">
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 d-flex gap-2">
+                    <button class="btn btn-primary" onclick="loadBranchReports()">Load</button>
+                    <button class="btn btn-outline-secondary" onclick="downloadCSV('branchTable')">Download CSV</button>
+                    <button class="btn btn-outline-secondary" onclick="window.print()">Print</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row g-3 mb-3 mt-2">
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-label">Cash</div>
+                  <div id="bkpiCash" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-label">Card</div>
+                  <div id="bkpiCard" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-label">Commission</div>
+                  <div id="bkpiCommission" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-label">Payments</div>
+                  <div id="bkpiCount" class="kpi-value">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="row g-3 mt-2">
+              <div class="col-md-6">
+                <div class="card shadow-sm">
+                  <div class="card-header">PAYMENTS BY TYPE</div>
+                  <div class="card-body"><canvas id="branchTypeChart" height="180"></canvas></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card shadow-sm">
+                  <div class="card-header">COMMISSION BY CARD TYPE</div>
+                  <div class="card-body"><canvas id="branchCommissionChart" height="180"></canvas></div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped" id="branchTable"></table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    (function(){
+      if(!window.bootstrap){
+        var s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js'; document.head.appendChild(s);
+      }
+      function loadScript(src, cb){ var e=document.createElement('script'); e.src=src; e.onload=cb; document.head.appendChild(e); }
+      function ensureChart(cb){ if(window.Chart){ cb(); } else { loadScript('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js', cb); } }
+      document.addEventListener('DOMContentLoaded', function(){ ensureChart(function(){ loadScript('/js/branch.js'); }); });
+    })();
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script src="/js/common.js"></script>
+  <div class="modal fade" id="companyProfileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Company Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-3 text-center">
+              <img id="cpLogoPreview" alt="" style="width:80px;height:80px;object-fit:cover;border-radius:8px;display:none">
+              <input id="cpLogoInput" type="file" accept="image/*" class="form-control mt-2">
+            </div>
+            <div class="col-md-9">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Company Name</label>
+                  <input id="cpName" class="form-control" placeholder="Company name">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Phone</label>
+                  <input id="cpPhone" class="form-control" placeholder="Phone">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input id="cpEmail" type="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Address Line 1</label>
+                  <input id="cpAddr1" class="form-control" placeholder="Street, area">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Address Line 2</label>
+                  <input id="cpAddr2" class="form-control" placeholder="Landmark, suite (optional)">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">City</label>
+                  <input id="cpCity" class="form-control" placeholder="City">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">State</label>
+                  <input id="cpState" class="form-control" placeholder="State">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Pincode</label>
+                  <input id="cpPincode" class="form-control" placeholder="Pincode">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="cpSaveBtn" type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

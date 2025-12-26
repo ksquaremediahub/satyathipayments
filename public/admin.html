@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="bg-gradient">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between">
+      <span class="navbar-brand brand-badge"><img id="companyLogoHeader" alt="" style="width:34px;height:34px;object-fit:cover;border-radius:6px;display:none;margin-right:8px"><span class="brand-dot dot1"></span><span class="brand-dot dot2"></span><span class="brand-dot dot3"></span><span class="brand-dot dot4"></span><span>Satyathi Digital</span></span>
+      <button class="btn btn-outline-light" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+  <div class="container-fluid app-shell">
+    <div class="row g-4">
+      <aside class="col-lg-3 sidebar">
+        <div class="menu">
+          <div class="title">Admin</div>
+          <a class="nav-link active" href="#createBranch"><i class="bi bi-buildings"></i> Create Branch</a>
+          <a class="nav-link" href="#commission"><i class="bi bi-percent"></i> Commission Settings</a>
+          <a class="nav-link" href="#reports"><i class="bi bi-table"></i> Reports</a>
+          <a class="nav-link" href="#dashboard"><i class="bi bi-graph-up"></i> Dashboard</a>
+        </div>
+      </aside>
+      <main class="col-lg-9 content">
+        <div class="card shadow-sm">
+          <div class="card-header"><span id="createBranch">CREATE BRANCH</span></div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Branch name</label>
+                <input id="bname" class="form-control" placeholder="Branch name">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Branch login</label>
+                <input id="blogin" class="form-control" placeholder="Login username">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Password</label>
+                <input id="bpass" type="password" class="form-control" placeholder="Password">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Owner/Manager Name</label>
+                <input id="bowner" class="form-control" placeholder="Owner full name">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Phone</label>
+                <input id="bphone" class="form-control" placeholder="Phone number">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input id="bemail" type="email" class="form-control" placeholder="Email">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Address Line 1</label>
+                <input id="addr1" class="form-control" placeholder="Street, area">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Address Line 2</label>
+                <input id="addr2" class="form-control" placeholder="Landmark, suite (optional)">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">City</label>
+                <input id="city" class="form-control" placeholder="City">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">State</label>
+                <input id="state" class="form-control" placeholder="State">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Pincode</label>
+                <input id="pincode" class="form-control" placeholder="Pincode">
+              </div>
+            </div>
+            <button class="btn btn-primary w-100 mt-3" onclick="createBranch()">Create Branch</button>
+          </div>
+        </div>
+        <div class="card shadow-sm mt-3">
+          <div class="card-header"><span id="commission">BRANCH COMMISSION SETTINGS</span></div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped" id="commissionTable"></table>
+            </div>
+          </div>
+        </div>
+        <div class="card shadow-sm mt-3">
+          <div class="card-header"><span id="companyProfile">COMPANY PROFILE</span></div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Company Name</label>
+                <input id="cnameCompany" class="form-control" placeholder="Company name">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Phone</label>
+                <input id="cphoneCompany" class="form-control" placeholder="Phone">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input id="cemailCompany" type="email" class="form-control" placeholder="Email">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Logo</label>
+                <input id="clogoCompany" type="file" accept="image/*" class="form-control">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Address Line 1</label>
+                <input id="caddr1Company" class="form-control" placeholder="Street, area">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Address Line 2</label>
+                <input id="caddr2Company" class="form-control" placeholder="Landmark, suite (optional)">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">City</label>
+                <input id="ccityCompany" class="form-control" placeholder="City">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">State</label>
+                <input id="cstateCompany" class="form-control" placeholder="State">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Pincode</label>
+                <input id="cpincodeCompany" class="form-control" placeholder="Pincode">
+              </div>
+            </div>
+            <button class="btn btn-primary w-100 mt-3" onclick="saveCompanyProfile()">Save Profile</button>
+          </div>
+        </div>
+        <div class="card shadow-sm mt-3">
+          <div class="card-header"><span id="reports">REPORTS</span></div>
+          <div class="card-body">
+            <div class="row g-2 align-items-end">
+              <div class="col-md-4">
+                <label class="form-label">BRANCH</label>
+                <select id="rbranch" class="form-select"></select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">START DATE</label>
+                <input id="rstart" type="date" class="form-control">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">END DATE</label>
+                <input id="rend" type="date" class="form-control">
+              </div>
+            </div>
+            <div class="mt-3 row g-2 align-items-end">
+              <div class="col-12 col-md-6">
+                <div class="input-group">
+                  <span class="input-group-text">Search</span>
+                  <input id="searchText" class="form-control" placeholder="Phone digits or card first/last 4">
+                </div>
+              </div>
+              <div class="col-12 col-md-6 d-flex gap-2">
+                <button class="btn btn-primary" onclick="loadReports()">Load</button>
+                <button class="btn btn-outline-secondary" onclick="downloadCSV('adminReports')">Download CSV</button>
+                <button class="btn btn-outline-secondary" onclick="downloadRangeCSV()">Download Range CSV</button>
+                <button class="btn btn-outline-secondary" onclick="window.print()">Print</button>
+                <button class="btn btn-outline-info" onclick="loadCommission()">Commission</button>
+                <button class="btn btn-outline-danger" onclick="resetTransactions()">Reset Transactions</button>
+              </div>
+            </div>
+            <div class="row g-3 mb-3 mt-2">
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-label">Cash</div>
+                  <div id="repKpiCash" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-label">Card</div>
+                  <div id="repKpiCard" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-label">Commission</div>
+                  <div id="repKpiCommission" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-label">Payments</div>
+                  <div id="repKpiCount" class="kpi-value">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="row g-3 mt-2">
+              <div class="col-md-6">
+                <div class="card shadow-sm">
+                  <div class="card-header">PAYMENTS BY TYPE</div>
+                  <div class="card-body"><canvas id="repTypeChart" height="180"></canvas></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card shadow-sm">
+                  <div class="card-header">COMMISSION BY CARD TYPE</div>
+                  <div class="card-body"><canvas id="repCommissionChart" height="180"></canvas></div>
+                </div>
+              </div>
+            </div>
+            <div class="row g-3 mt-2">
+              <div class="col-md-6">
+                <div class="card shadow-sm">
+                  <div class="card-header">DAILY TOTALS</div>
+                  <div class="card-body"><canvas id="repDailyTotalsChart" height="180"></canvas></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card shadow-sm">
+                  <div class="card-header">DAILY COMMISSION</div>
+                  <div class="card-body"><canvas id="repDailyCommissionChart" height="180"></canvas></div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped" id="adminReports"></table>
+            </div>
+            <div id="commissionBox" class="mt-2 text-muted"></div>
+          </div>
+        </div>
+        <div class="card shadow-sm mt-3">
+          <div class="card-header"><span id="dashboard">REPORTS DASHBOARD</span></div>
+          <div class="card-body">
+            <div class="row g-3 mb-3">
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-icon text-primary"><i class="bi bi-cash-stack"></i></div>
+                  <div class="kpi-label">Cash</div>
+                  <div id="kpiCash" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-icon text-success"><i class="bi bi-credit-card"></i></div>
+                  <div class="kpi-label">Card</div>
+                  <div id="kpiCard" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-icon text-info"><i class="bi bi-percent"></i></div>
+                  <div class="kpi-label">Commission</div>
+                  <div id="kpiCommission" class="kpi-value">0</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="kpi-card">
+                  <div class="kpi-icon text-warning"><i class="bi bi-receipt"></i></div>
+                  <div class="kpi-label">Payments</div>
+                  <div id="kpiCount" class="kpi-value">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="row g-2 align-items-end">
+              <div class="col-md-4">
+                <label class="form-label">Date</label>
+                <input id="dashDate" type="date" class="form-control">
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-primary" onclick="loadReportsDashboard()">Load</button>
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-outline-secondary" onclick="downloadCSV('adminDash')">Download CSV</button>
+              </div>
+            </div>
+            <div class="row g-3 mt-2">
+              <div class="col-md-6">
+                <div class="card shadow-sm">
+                  <div class="card-header">Cash vs Card</div>
+                  <div class="card-body"><canvas id="chartTotals" height="180"></canvas></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card shadow-sm">
+                  <div class="card-header">Commission by Branch</div>
+                  <div class="card-body"><canvas id="chartComm" height="180"></canvas></div>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped" id="adminDash"></table>
+            </div>
+            <div id="dashTotals" class="mt-2 text-muted"></div>
+            <hr class="my-3">
+            <h6>ALL BRANCH PAYMENTS</h6>
+            <div class="table-responsive mt-2">
+              <table class="table table-striped" id="adminDashAll"></table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    (function(){
+      if(!window.bootstrap){
+        var s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js'; document.head.appendChild(s);
+      }
+      if(!window.Chart){
+        var c=document.createElement('script'); c.src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js'; document.head.appendChild(c);
+      }
+    })();
+  </script>
+  <script src="/js/common.js"></script>
+  <script src="/js/admin.js"></script>
+  <div class="modal fade" id="companyProfileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Company Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-3 text-center">
+              <img id="cpLogoPreview" alt="" style="width:80px;height:80px;object-fit:cover;border-radius:8px;display:none">
+              <input id="cpLogoInput" type="file" accept="image/*" class="form-control mt-2">
+            </div>
+            <div class="col-md-9">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Company Name</label>
+                  <input id="cpName" class="form-control" placeholder="Company name">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Phone</label>
+                  <input id="cpPhone" class="form-control" placeholder="Phone">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input id="cpEmail" type="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Address Line 1</label>
+                  <input id="cpAddr1" class="form-control" placeholder="Street, area">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Address Line 2</label>
+                  <input id="cpAddr2" class="form-control" placeholder="Landmark, suite (optional)">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">City</label>
+                  <input id="cpCity" class="form-control" placeholder="City">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">State</label>
+                  <input id="cpState" class="form-control" placeholder="State">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Pincode</label>
+                  <input id="cpPincode" class="form-control" placeholder="Pincode">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="cpSaveBtn" type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

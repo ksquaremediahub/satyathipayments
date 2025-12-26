@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sathiya Payments</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="bg-gradient">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container"><span class="navbar-brand brand-badge"><img id="companyLogoHeader" alt="" style="width:34px;height:34px;object-fit:cover;border-radius:6px;display:none;margin-right:8px"><span class="brand-dot dot1"></span><span class="brand-dot dot2"></span><span class="brand-dot dot3"></span><span class="brand-dot dot4"></span><span>Satyathi Digital</span></span></div>
+  </nav>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card shadow-lg">
+          <div class="card-body p-4">
+            <h3 class="mb-3">Login</h3>
+            <div class="mb-3">
+            <label class="form-label">Role</label>
+            <select id="role" class="form-select">
+              <option value="admin">Admin</option>
+              <option value="branch">Branch</option>
+            </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input id="username" class="form-control" placeholder="Enter username">
+            </div>
+            <div class="mb-4">
+              <label class="form-label">Password</label>
+              <input id="password" type="password" class="form-control" placeholder="Enter password">
+            </div>
+            <button id="loginBtn" class="btn btn-primary w-100">Login</button>
+            <div id="msg" class="text-danger mt-3"></div>
+            <div class="mt-2 text-end text-muted small">Branch password resets are Admin-only</div>
+          </div>
+        </div>
+        <div class="text-muted small mt-3">Default admin: admin / admin123</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function(){ if(!window.bootstrap){ var s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js'; document.head.appendChild(s); } })();
+  </script>
+  <script src="/js/common.js"></script>
+  <script>
+    const loginEl = document.getElementById('loginBtn');
+    if (loginEl) loginEl.addEventListener('click', async () => {
+      const role = document.getElementById('role').value;
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const r = await api('/api/login', { method: 'POST', body: { role, username, password } });
+      const msg = document.getElementById('msg');
+      if (!r.ok) { msg.textContent = r.error || 'Login failed'; return; }
+      if (role === 'admin') { localStorage.setItem('session', JSON.stringify({ role })); window.location.href = '/admin.html'; return; }
+      if (role === 'branch') { localStorage.setItem('session', JSON.stringify({ role, branchId: r.branchId, branchName: r.branchName })); window.location.href = '/branch.html'; return; }
+    });
+
+    
+  </script>
+  <div class="modal fade" id="companyProfileModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Company Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-3 text-center">
+              <img id="cpLogoPreview" alt="" style="width:80px;height:80px;object-fit:cover;border-radius:8px;display:none">
+              <input id="cpLogoInput" type="file" accept="image/*" class="form-control mt-2">
+            </div>
+            <div class="col-md-9">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Company Name</label>
+                  <input id="cpName" class="form-control" placeholder="Company name">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Phone</label>
+                  <input id="cpPhone" class="form-control" placeholder="Phone">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input id="cpEmail" type="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Address Line 1</label>
+                  <input id="cpAddr1" class="form-control" placeholder="Street, area">
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Address Line 2</label>
+                  <input id="cpAddr2" class="form-control" placeholder="Landmark, suite (optional)">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">City</label>
+                  <input id="cpCity" class="form-control" placeholder="City">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">State</label>
+                  <input id="cpState" class="form-control" placeholder="State">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label">Pincode</label>
+                  <input id="cpPincode" class="form-control" placeholder="Pincode">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="cpSaveBtn" type="button" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+  
