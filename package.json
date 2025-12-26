@@ -6,7 +6,12 @@
   "scripts": {
     "start": "node server.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "mongoose": "^9.0.2",
+    "mysql2": "^3.16.0",
+    "sequelize": "^6.37.7"
+  },
   "engines": {
     "node": ">=14.0.0"
   }
