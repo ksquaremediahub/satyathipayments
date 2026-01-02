@@ -62,7 +62,22 @@
       if (role === 'branch') { localStorage.setItem('session', JSON.stringify({ role, branchId: r.branchId, branchName: r.branchName })); window.location.href = '/branch.html'; return; }
     });
 
-    
+    (async function checkStatus() {
+      try {
+        const r = await fetch('/api/status');
+        const data = await r.json();
+        const msgDiv = document.getElementById('msg');
+        if (data.storage === 'MySQL') {
+          msgDiv.className = 'text-success mt-3';
+          msgDiv.innerHTML = '✅ Database Connected';
+        } else {
+          msgDiv.className = 'text-danger mt-3';
+          msgDiv.innerHTML = '⚠️ Database Error: ' + (data.lastError || 'Unknown Error');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
   </script>
   <div class="modal fade" id="companyProfileModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
