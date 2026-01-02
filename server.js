@@ -95,6 +95,7 @@ async function connectDB() {
       return;
     } catch (err) {
       console.error('MySQL connection error:', err);
+      mysqlError = err;
     }
   }
 
