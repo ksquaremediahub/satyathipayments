@@ -237,6 +237,15 @@ async function handleApi(req, res) {
   const pathname = urlObj.pathname;
   if (req.method === 'OPTIONS') { sendJSON(res, 200, { ok: true }); return; }
 
+  if (pathname === '/api/status' && req.method === 'GET') {
+    sendJSON(res, 200, {
+      status: 'ok',
+      storage: useMySQL ? 'MySQL' : useMongo ? 'MongoDB' : 'Local JSON (Unsafe)',
+      mysqlHost: useMySQL ? process.env.MYSQL_URI.split('@')[1].split(':')[0] : null
+    });
+    return;
+  }
+
   try {
     if (pathname === '/api/login' && req.method === 'POST') {
       const body = await parseBody(req);
